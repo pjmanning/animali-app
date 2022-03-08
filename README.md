@@ -18,7 +18,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/pjmanning/animali-app">
-    <img src="static/icon.png" alt="Animali logo" width="80" height="80">
+    <img src="@/assets/images/icon.png" alt="Animali logo" width="80" height="80">
   </a>
 
   <h3 align="center">Animali</h3>
@@ -182,4 +182,4 @@ Project Link: [https://github.com/pjmanning/animali-app](https://github.com/pjma
 [linkedin-url]: https://linkedin.com/in/philmanning1
 [twitter-shield]: https://img.shields.io/badge/-Twitter-black.svg?style=for-the-badge&logo=twitter&colorB=555
 [twitter-url]: https://twitter.com/pj_manning
-[product-screenshot]: static/animali-homepage.jpg
+[product-screenshot]: assets/images/animali-homepage.jpg
