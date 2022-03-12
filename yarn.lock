@@ -546,6 +546,13 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.1.0.tgz#7f698254aadf921e48dda8c0a6b304026b8a9323"
   integrity sha512-JLo+Y592QzIE+q7Dl2pMUtt4q8SKYI5jDrZxrozEQxnGVOyYE+GWK9eLkwTaeN9DDctlaRAQ3TBmzZ1qdLE30A==
 
+"@tailwindcss/forms@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.5.0.tgz#d4bea2560a10aac642573e72d3b4d62a88960449"
+  integrity sha512-KzWugryEBFkmoaYcBE18rs6gthWCFHHO7cAZm2/hv3hwD67AzwP7udSCa22E7R1+CEJL/FfhYsJWrc0b1aeSzw==
+  dependencies:
+    mini-svg-data-uri "^1.2.3"
+
 "@types/long@^4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.1.tgz#459c65fa1867dafe6a8f322c4c51695663cc55e9"
@@ -674,6 +681,24 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.31.tgz#c90de7126d833dcd3a4c7534d534be2fb41faa4e"
   integrity sha512-ymN2pj6zEjiKJZbrf98UM2pfDd6F2H7ksKw7NDt/ZZ1fh5Ei39X5tABugtT03ZRlWd9imccoK0hE8hpjpU7irQ==
 
+"@vueuse/components@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/components/-/components-8.0.0.tgz#a491bbe5239c5b440f2e60bf0c5e18a044e7588d"
+  integrity sha512-f1x9UDpaBKf/YcRlFbiLh57AOvw8c6PLASwwAJmJnrHKUrHc2WpkMefRFtkunhMNQ6d6zK8DTYQ+ZXg95dYiYA==
+  dependencies:
+    "@vueuse/core" "8.0.0"
+    "@vueuse/shared" "8.0.0"
+    vue-demi "*"
+
+"@vueuse/core@8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-8.0.0.tgz#71c13c1e0c0d6a196f6c049fd431ba314f782f89"
+  integrity sha512-CU8oQhTaAQ4+9IlEHnaGk88qQ2fSvALHixWZhfyA2j18G42XeyJz3V0FmnBMWZUwd7VRSHJZFbGziZ6o5npNow==
+  dependencies:
+    "@vueuse/metadata" "8.0.0"
+    "@vueuse/shared" "8.0.0"
+    vue-demi "*"
+
 "@vueuse/core@^7.7.1":
   version "7.7.1"
   resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-7.7.1.tgz#fc284f4103de73c7fb79bc06579d8066790db511"
@@ -682,10 +707,22 @@
     "@vueuse/shared" "7.7.1"
     vue-demi "*"
 
+"@vueuse/metadata@8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/metadata/-/metadata-8.0.0.tgz#8f8676e9a3d6872c9a41583d9a3e67f3604114d7"
+  integrity sha512-23R9pqgfJnfmUnGCOtaDkwaNYEAO7N6whvaAFAs5D5xHXgqAj+z/tLhwQzSJw/ZzJGUb8W5L+VgP9S7SL35riw==
+
 "@vueuse/shared@7.7.1":
   version "7.7.1"
   resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-7.7.1.tgz#77e312de7275380efce86b0079bd7938791a076b"
   integrity sha512-rN2qd22AUl7VdBxihagWyhUNHCyVk9IpvBTTfHoLH9G7rGE552X1f+zeCfehuno0zXif13jPw+icW/wn2a0rnQ==
+  dependencies:
+    vue-demi "*"
+
+"@vueuse/shared@8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-8.0.0.tgz#2b452362c797dadb8d85ed169e386262a390e28c"
+  integrity sha512-HUIFZ5Vc3aGvIzDQJJhg2+Ok5xvNuwxoz5HrOr/M765wlj357WiMYzhU2XGljL6IcmK29SP/1Jb4Fra7A4PBCw==
   dependencies:
     vue-demi "*"
 
@@ -1929,6 +1966,11 @@ micromatch@^4.0.4:
   dependencies:
     braces "^3.0.1"
     picomatch "^2.2.3"
+
+mini-svg-data-uri@^1.2.3:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/mini-svg-data-uri/-/mini-svg-data-uri-1.4.4.tgz#8ab0aabcdf8c29ad5693ca595af19dd2ead09939"
+  integrity sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==
 
 minimatch@^3.0.4:
   version "3.1.2"
