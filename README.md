@@ -72,7 +72,6 @@
 ### Built With
 
 - [Vue](https://vuejs.org/)
-- [Nuxt](https://nuxtjs.org)
 - [Tailwind](https://tailwindcss.com)
 - [Firebase](https://firebase.google.com/)
 - [Algolia](https://algolia.com/)
@@ -160,7 +159,6 @@ Project Link: [https://github.com/pjmanning/animali-app](https://github.com/pjma
 ## Acknowledgements
 
 - [Vue](https://vuejs.org/)
-- [Nuxt](https://nuxtjs.org)
 - [Tailwind](https://tailwindcss.com)
 - [Firebase](https://firebase.google.com/)
 - [Algolia](https://algolia.com/)
