@@ -1,83 +1,18 @@
-<script setup>
-import useLogin from '@/composables/useLogin'
-import { useRouter } from 'vue-router'
-
-const email = ref('')
-const password = ref('')
-const checkbox_remember_me = ref(false)
-
-const { login, error } = useLogin()
-const router = useRouter()
-
-const handleLogin = async () => {
-  await login(email.value, password.value)
-
-  if (!error.value) {
-    router.push('/')
-  } else if (error.code === 'auth/wrong-password') {
-    console.log('error here: ', error)
-    self.isLoading = false
-
-    self.notificationTitle = 'Wrong Password'
-    self.notificationBody = error.message
-    self.showNotification = true
-    setTimeout(() => {
-      self.showNotification = false
-    }, 5000)
-  } else if (error.code === 'auth/user-not-found') {
-    console.log('error here: ', error)
-    self.isLoading = false
-
-    self.notificationTitle = 'User Not Found'
-    self.notificationBody = error.message
-    self.showNotification = true
-    setTimeout(() => {
-      self.showNotification = false
-    }, 5000)
-  } else {
-    console.log('error here: ', error)
-    self.isLoading = false
-
-    self.notificationTitle = 'Error'
-    self.notificationBody = error.message
-    self.showNotification = true
-    setTimeout(() => {
-      self.showNotification = false
-    }, 5000)
-  }
-}
-</script>
-
 <template>
   <div class="flex min-h-screen bg-white">
-    <!-- <Notification
-      class="z-50"
-      v-show="showNotification"
-      :title="notificationTitle"
-      :body="notificationBody"
-      :status="notificationStatus"
-      @close="showNotification = false"
-    />
+    <!--
     <PasswordResetModal
       v-show="showPasswordResetModal"
       @closeModal="showPasswordResetModal = false"
       @showNotification="presentNotification"
     /> -->
-    <div
-      class="flex flex-col justify-center flex-1 px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24"
-    >
+    <div class="flex flex-col justify-center flex-1 px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
       <div class="w-full max-w-sm mx-auto">
         <div>
           <a href="https://animali.life">
-            <img
-              src="@/assets/images/logo.svg"
-              class="w-auto h-12"
-              alt="Animali"
-            />
+            <img src="@/assets/images/logo.svg" class="w-auto h-12" alt="Animali" />
           </a>
-          <h2 class="mt-6 text-3xl font-extrabold leading-9 text-secondary">
-            Sign in to your account
-          </h2>
+          <h2 class="mt-6 text-3xl font-extrabold leading-9 text-secondary">Sign in to your account</h2>
           <!-- <p class="mt-2 text-sm leading-5 text-gray-600 max-w">
                         Or
                         <nuxt-link
@@ -177,11 +112,7 @@ const handleLogin = async () => {
           <div class="mt-6">
             <form action="#" method="POST">
               <div>
-                <label
-                  for="email"
-                  class="block text-sm font-medium leading-5 text-gray-700"
-                  >Email address</label
-                >
+                <label for="email" class="block text-sm font-medium leading-5 text-gray-700">Email address</label>
                 <div class="mt-1 rounded-md shadow-sm">
                   <input
                     :disabled="isLoading"
@@ -195,11 +126,7 @@ const handleLogin = async () => {
               </div>
 
               <div class="mt-6">
-                <label
-                  for="password"
-                  class="block text-sm font-medium leading-5 text-gray-700"
-                  >Password</label
-                >
+                <label for="password" class="block text-sm font-medium leading-5 text-gray-700">Password</label>
                 <div class="mt-1 rounded-md shadow-sm">
                   <input
                     :disabled="isLoading"
@@ -220,11 +147,7 @@ const handleLogin = async () => {
                     type="checkbox"
                     class="w-4 h-4 transition duration-150 ease-in-out form-checkbox text-primary"
                   />
-                  <label
-                    for="remember_me"
-                    class="block ml-2 text-sm leading-5 text-gray-900"
-                    >Remember me</label
-                  >
+                  <label for="remember_me" class="block ml-2 text-sm leading-5 text-gray-900">Remember me</label>
                 </div>
 
                 <div class="text-sm leading-5">
@@ -246,11 +169,7 @@ const handleLogin = async () => {
                     } flex w-full justify-center rounded-md border border-transparent bg-animali-700 py-2 px-4 text-sm font-medium text-white transition duration-150 ease-in-out hover:bg-primary focus:outline-none active:bg-secondary`"
                     @click.prevent="handleLogin"
                   >
-                    <svg
-                      v-if="isLoading"
-                      class="w-5 h-5 mr-3 -ml-1 text-white animate-spin"
-                      viewBox="0 0 24 24"
-                    >
+                    <svg v-if="isLoading" class="w-5 h-5 mr-3 -ml-1 text-white animate-spin" viewBox="0 0 24 24">
                       <path
                         class="opacity-75"
                         fill="currentColor"
@@ -275,6 +194,63 @@ const handleLogin = async () => {
     </div>
   </div>
 </template>
+
+<script setup>
+import useLogin from '@/composables/useLogin'
+import { useRouter } from 'vue-router'
+import { notify } from 'notiwind'
+
+const email = ref('')
+const password = ref('')
+const checkbox_remember_me = ref(false)
+
+const { login, error, isLoading } = useLogin()
+const router = useRouter()
+
+const handleLogin = async () => {
+  await login(email.value, password.value)
+
+  if (!error.value) {
+    router.push('/')
+  } else if (error.code === 'auth/wrong-password') {
+    console.log('error here: wrong password... ', error)
+    isLoading.value = false
+    notify(
+      {
+        group: 'foo',
+        title: 'Wrong Password',
+        type: 'warning',
+        text: error.message,
+      },
+      5000
+    )
+  } else if (error.code === 'auth/user-not-found') {
+    console.log('error here: user not found... ', error)
+    isLoading.value = false
+    notify(
+      {
+        group: 'foo',
+        title: 'User Not Found',
+        type: 'warning',
+        text: error.value,
+      },
+      5000
+    )
+  } else {
+    console.log('error here: idk... ', error)
+    isLoading.value = false
+    notify(
+      {
+        group: 'foo',
+        title: 'Error',
+        type: 'warning',
+        text: error.value,
+      },
+      5000
+    )
+  }
+}
+</script>
 
 <style>
 .login-tabs-container {

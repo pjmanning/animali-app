@@ -1,7 +1,7 @@
 import { auth } from '../firebase/config'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 
-const error = ref(false)
+const error = ref('')
 const isLoading = ref(false)
 
 const login = async (email, password) => {

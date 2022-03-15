@@ -9,24 +9,12 @@
       aria-label="Open sidebar"
       @click="isSidebarOpen = true"
     >
-      <svg
-        class="w-6 h-6"
-        stroke="currentColor"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h7"
-        />
+      <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
       </svg>
     </button>
     <div class="flex justify-between flex-1 px-6">
-      <div
-        class="relative inset-y-0 left-0 flex items-center ml-0 pointer-events-none md:absolute md:ml-6"
-      >
+      <div class="relative inset-y-0 left-0 flex items-center ml-0 pointer-events-none md:absolute md:ml-6">
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
           <path
             fill-rule="evenodd"
@@ -99,11 +87,7 @@
                 src="@/static/icon.png"
                 alt="logo"
               /> -->
-              <img
-                class="w-8 h-8 rounded-full"
-                src="@/assets/images/logo.svg"
-                alt="logo"
-              />
+              <img class="w-8 h-8 rounded-full" src="@/assets/images/logo.svg" alt="logo" />
             </button>
           </div>
 
@@ -115,10 +99,7 @@
             leave-class="transform scale-100 opacity-100"
             leave-to-class="transform scale-95 opacity-0"
           >
-            <div
-              class="absolute right-0 w-48 mt-2 origin-top-right rounded-md shadow-lg"
-              v-show="isAvatarMenuOpen"
-            >
+            <div class="absolute right-0 w-48 mt-2 origin-top-right rounded-md shadow-lg" v-show="isAvatarMenuOpen">
               <div
                 class="py-1 bg-white rounded-md shadow-xs"
                 role="menu"
@@ -147,12 +128,12 @@
                     />
                   </svg>
                 </a> -->
-                <nuxt-link
+                <RouterLink
                   to="/settings"
                   id="settings-dropdown"
                   class="block px-4 py-2 text-sm text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100"
                   role="menuitem"
-                  >Settings</nuxt-link
+                  >Settings</RouterLink
                 >
                 <div
                   class="block px-4 py-2 text-sm text-gray-700 transition duration-150 ease-in-out cursor-pointer hover:bg-gray-100"
@@ -174,19 +155,28 @@
 import { auth } from '@/firebase/config'
 import { signOut } from 'firebase/auth'
 import getUser from '@/composables/getUser'
+import { useRouter } from 'vue-router'
+import { watchEffect } from 'vue'
 import { vOnClickOutside } from '@vueuse/components'
 
 const showFullSearch = ref(false)
 const isSidebarOpen = ref(false)
 
-// User
+/////////// User /////////////
 const { user } = getUser()
+const router = useRouter()
 
 const handleLogout = () => {
   signOut(auth)
 }
 
-// Dropdown menu
+watchEffect(() => {
+  if (!user.value) {
+    router.push('/')
+  }
+})
+
+/////////// Dropdown Menu /////////////
 const isAvatarMenuOpen = ref(false)
 
 const hideAvatarMenu = () => {

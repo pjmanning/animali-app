@@ -22,14 +22,6 @@
 </template> -->
 
 <template>
-  <!--
-    This example requires updating your template:
-
-    ```
-    <html class="h-full bg-gray-100">
-    <body class="h-full">
-    ```
-  -->
   <div>
     <TransitionRoot as="template" :show="sidebarOpen">
       <Dialog as="div" class="fixed inset-0 z-40 flex md:hidden" @close="sidebarOpen = false">
@@ -83,10 +75,10 @@
             </div>
             <div class="flex-1 h-0 mt-5 overflow-y-auto">
               <nav class="px-2 space-y-1">
-                <a
+                <RouterLink
                   v-for="item in navigation"
                   :key="item.name"
-                  :href="item.href"
+                  :to="item.link"
                   :class="[
                     item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                     'group flex items-center rounded-md px-2 py-2 text-base font-medium',
@@ -101,7 +93,7 @@
                     aria-hidden="true"
                   />
                   {{ item.name }}
-                </a>
+                </RouterLink>
               </nav>
             </div>
           </div>
@@ -117,16 +109,16 @@
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <!-- <div class="flex flex-col flex-1 min-h-0 bg-gray-800"> -->
       <div class="flex flex-col flex-grow pt-2 pb-4 overflow-y-auto bg-animali-900">
-        <RouterLink to="/dashboard" id="logo" class="flex items-center flex-shrink-0 h-16 px-4 bg-primary">
+        <RouterLink to="/" id="logo" class="flex items-center flex-shrink-0 h-16 px-4 bg-primary">
           <img src="@/assets/images/logo.svg" class="w-auto h-8 mr-4" alt="Animali" />
           <h1 class="text-4xl font-medium font-national text-primary">Animali</h1>
         </RouterLink>
         <div class="flex flex-col flex-1 overflow-y-auto">
           <nav class="flex-1 px-2 py-4 space-y-1">
-            <a
+            <RouterLink
               v-for="item in navigation"
               :key="item.name"
-              :href="item.href"
+              :to="item.link"
               :class="[
                 item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                 'group flex items-center rounded-md px-2 py-2 text-sm font-medium',
@@ -141,7 +133,7 @@
                 aria-hidden="true"
               />
               {{ item.name }}
-            </a>
+            </RouterLink>
           </nav>
         </div>
       </div>
@@ -208,12 +200,23 @@
                 <MenuItems
                   class="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                 >
-                  <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-                    <a
-                      :href="item.href"
-                      :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']"
-                      >{{ item.name }}</a
+                  <MenuItem>
+                    <RouterLink
+                      to="/settings"
+                      class="block px-4 py-2 text-sm text-gray-700 transition duration-150 ease-in-out cursor-pointer hover:bg-gray-100"
+                      role="menuitem"
                     >
+                      Settings
+                    </RouterLink>
+                  </MenuItem>
+                  <MenuItem>
+                    <div
+                      class="block px-4 py-2 text-sm text-gray-700 transition duration-150 ease-in-out cursor-pointer hover:bg-gray-100"
+                      role="menuitem"
+                      @click="handleLogout"
+                    >
+                      Sign out
+                    </div>
                   </MenuItem>
                 </MenuItems>
               </transition>
@@ -241,49 +244,47 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { auth } from '@/firebase/config'
+import { signOut } from 'firebase/auth'
+import getUser from '@/composables/getUser'
+import { useRouter } from 'vue-router'
+import { watchEffect } from 'vue'
 import {
   BellIcon,
   CalendarIcon,
-  ChartBarIcon,
   FolderIcon,
   HomeIcon,
   InboxIcon,
   MenuAlt2Icon,
   UsersIcon,
   XIcon,
+  PlusIcon,
 } from '@heroicons/vue/outline'
 import { SearchIcon } from '@heroicons/vue/solid'
 
 const navigation = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Team', href: '#', icon: UsersIcon, current: false },
-  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Documents', href: '#', icon: InboxIcon, current: false },
-  { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
-]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Dashboard', link: '/', icon: HomeIcon, current: true },
+  { name: 'Animals', link: '/animals', icon: UsersIcon, current: false },
+  { name: 'Map', link: '/map', icon: FolderIcon, current: false },
+  { name: 'Add Encounter', link: '/add-encounter', icon: PlusIcon, current: false },
+  { name: 'Settings', link: '/settings', icon: InboxIcon, current: false },
 ]
 
-export default {
-  components: {
-    BellIcon,
-    MenuAlt2Icon,
-    SearchIcon,
-    XIcon,
-  },
-  setup() {
-    const sidebarOpen = ref(false)
+const sidebarOpen = ref(false)
 
-    return {
-      navigation,
-      userNavigation,
-      sidebarOpen,
-    }
-  },
+/////////// User /////////////
+const { user } = getUser()
+const router = useRouter()
+
+const handleLogout = () => {
+  signOut(auth)
 }
+
+watchEffect(() => {
+  if (!user.value) {
+    console.log('no user')
+    router.replace('/login')
+  }
+})
 </script>
