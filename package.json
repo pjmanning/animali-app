@@ -8,6 +8,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.4",
     "firebase": "^9.6.8",
     "notiwind": "^1.2.5",
     "pinia": "^2.0.11",

@@ -22,10 +22,6 @@ module.exports = {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
         national: ['NationalPark-Thin', ...defaultTheme.fontFamily.sans],
       },
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-        national: ['NationalPark-Thin', ...defaultTheme.fontFamily.sans],
-      },
     },
   },
   plugins: [require('@tailwindcss/forms')],

@@ -4,6 +4,7 @@ import { setupLayouts } from 'virtual:generated-layouts'
 import generatedRoutes from 'virtual:generated-pages'
 import { createPinia } from 'pinia'
 import Notifications from 'notiwind'
+import VueGoogleMaps from '@fawmi/vue-google-maps'
 
 import App from './App.vue'
 import '@/assets/index.css'
@@ -35,6 +36,11 @@ onAuthStateChanged(auth, () => {
     app.use(router)
     app.use(createPinia())
     app.use(Notifications)
+    app.use(VueGoogleMaps, {
+      load: {
+        key: 'AIzaSyB0FgK0XakPOthGwHwEzsx7YYy5AC8Oclo',
+      },
+    })
     app.mount('#app')
   }
 })
